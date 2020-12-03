@@ -20,15 +20,25 @@
                 <p v-if="inventory > 10">In Stock</p>
                 <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
                 <p v-else>Out of Stock</p>
-                <p v-if="onSale">On Sale!</p>
                 <ul>
                     <li v-for="detail in details">{{ detail }}</li>
                 </ul>
                 <ul>
                     <li v-for="(size, index) in sizes" :key="index">{{ size }}</li>
                 </ul> 
-                <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">{{ variant.color }}</div>
-                <button class="button" v-on:click="addToCart">Add to Cart</button>
+                <div v-for="variant in variants" 
+                    :key="variant.id" 
+                    @mouseover="updateImage(variant.image)"
+                    class="color-circle" 
+                    :style="{ backgroundColor: variant.color }">
+                </div>
+                <button 
+                    class="button" 
+                    :class="{ disabledButton: !inStock }" 
+                    :disabled="!inStock" 
+                    @click="addToCart">
+                    Add to Cart
+                </button>
                 <button class="button" @click="removeFromCart">Remove Item</button>
               <a :href="url">Made by Vue Mastery</a>
             </div>
